@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  mongodb:
+    image: 'docker.io/bitnami/mongodb:4.0'
+    user: root
+    container_name: 'mongodb'
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGODB_DATABASE=finmid
+    volumes:
+      - ./bitnami/mongodb:/bitnami/mongodb
