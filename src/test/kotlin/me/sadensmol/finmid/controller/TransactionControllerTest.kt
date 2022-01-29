@@ -2,7 +2,6 @@ package me.sadensmol.finmid.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.mockk.*
-import me.sadensmol.finmid.domain.Account
 import me.sadensmol.finmid.domain.NotEnoughAmountException
 import me.sadensmol.finmid.domain.NotFoundException
 import me.sadensmol.finmid.domain.Transaction
@@ -19,7 +18,6 @@ import org.springframework.context.annotation.Bean
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.math.BigDecimal
 
@@ -61,7 +59,7 @@ class TransactionControllerTest(
         assertEquals(TEST_TRANSACTION, objectMapper.readValue(response, Transaction::class.java))
         coVerify(exactly = 1) {
             transactionService.transfer(
-                from = TEST_ACCOUNT_ID, to = TEST_ACCOUNT_ID2, amount = TEST_AMOUNT
+                from = TEST_ACCOUNT_ID, to = TEST_ACCOUNT_ID_2, amount = TEST_AMOUNT
             )
         }
     }
@@ -89,7 +87,7 @@ class TransactionControllerTest(
 
         coVerify(exactly = 1) {
             transactionService.transfer(
-                from = TEST_ACCOUNT_ID, to = TEST_ACCOUNT_ID2, amount = TEST_AMOUNT
+                from = TEST_ACCOUNT_ID, to = TEST_ACCOUNT_ID_2, amount = TEST_AMOUNT
             )
         }
     }
@@ -107,7 +105,7 @@ class TransactionControllerTest(
 
         coVerify(exactly = 1) {
             transactionService.transfer(
-                from = TEST_ACCOUNT_ID, to = TEST_ACCOUNT_ID2, amount = TEST_AMOUNT
+                from = TEST_ACCOUNT_ID, to = TEST_ACCOUNT_ID_2, amount = TEST_AMOUNT
             )
         }
     }
@@ -125,7 +123,7 @@ class TransactionControllerTest(
 
         coVerify(exactly = 1) {
             transactionService.transfer(
-                from = TEST_ACCOUNT_ID, to = TEST_ACCOUNT_ID2, amount = TEST_AMOUNT
+                from = TEST_ACCOUNT_ID, to = TEST_ACCOUNT_ID_2, amount = TEST_AMOUNT
             )
         }
     }

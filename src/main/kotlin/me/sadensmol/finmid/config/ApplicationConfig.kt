@@ -30,6 +30,6 @@ class ApplicationConfig {
 
     @Bean
     fun redisLockRegistry(redisConnectionFactory: RedisConnectionFactory?): RedisLockRegistry? {
-        return RedisLockRegistry(redisConnectionFactory, "finmid_test")
+        return RedisLockRegistry(redisConnectionFactory, "transaction")
     }
 }

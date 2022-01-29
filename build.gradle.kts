@@ -11,6 +11,7 @@ group = "me.sadensmol.finmid"
 version = "0.0.1"
 
 val jacksonVersion = "2.12.4"
+val testContainersVersion = "1.15.3"
 
 java.sourceCompatibility = JavaVersion.VERSION_11
 
@@ -49,12 +50,16 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-integration")
     implementation("org.springframework.integration:spring-integration-redis")
 
+
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     compileOnly("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    testImplementation("org.testcontainers:testcontainers:$testContainersVersion")
+    testImplementation("org.testcontainers:junit-jupiter:$testContainersVersion")
 
     testImplementation("io.mockk:mockk:1.11.0")
 }
