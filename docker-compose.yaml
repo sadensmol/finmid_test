@@ -11,3 +11,13 @@ services:
       - MONGODB_DATABASE=finmid
     volumes:
       - ./bitnami/mongodb:/bitnami/mongodb
+  redis:
+    image: 'docker.io/bitnami/redis:latest'
+    user: root
+    container_name: 'redis'
+    ports:
+      - '6379:6379'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - ./bitnami/redis:/bitnami/redis/data

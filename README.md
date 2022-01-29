@@ -28,9 +28,11 @@ Implement following banking APIs:
 - **Any framework**
 - Stateless service with external data storage
 - Ignore authentication and authorization
-- Code will be pushed to **private Github repository** and dedicated finmid members will be added as collaborators
 
 ## Solution
+
+It's implemented in a strict way - when we directly update accounts' balances. 
+The best approach here is ES and CQRS.
 
 ### Used technologies
 
@@ -46,6 +48,11 @@ Implement following banking APIs:
 400 - Bad request
 404 - Requested entity not found
 500 - Server error
+
+#### Account API
+
+
+#### Transaction API
 
 ### How to start
 *make start*

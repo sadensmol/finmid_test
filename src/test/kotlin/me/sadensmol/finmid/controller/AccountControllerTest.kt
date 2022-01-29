@@ -65,7 +65,7 @@ class AccountControllerTest(
     }
 
     @Test
-    fun `Given create account request when receive it and any error occurred then return 500`() {
+    fun `Given create account request when receive it and any error occurred then return server error`() {
         coEvery { accountRepository.save(any()) } throws Exception()
 
         mockMvc.perform(
@@ -73,22 +73,18 @@ class AccountControllerTest(
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(TEST_CREATE_ACCOUNT_REQUEST))
         )
-            .andExpect(
-                status().is5xxServerError
-            )
+            .andExpect(status().is5xxServerError)
         coVerify(exactly = 1) { accountRepository.save(TEST_ACCOUNT.copy(accountId = null)) }
     }
 
     @Test
-    fun `Given bad create account request when receive it then return 400`() {
+    fun `Given bad create account request when receive it then return bad request`() {
         mockMvc.perform(
             post(AccountController.URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{}")
         )
-            .andExpect(
-                status().is4xxClientError
-            )
+            .andExpect(status().isBadRequest)
     }
 
 
@@ -96,12 +92,8 @@ class AccountControllerTest(
     fun `Given get account request when receive it then return account`() {
         coEvery { accountRepository.findById(any()) } returns Optional.of(TEST_ACCOUNT)
 
-        val response = mockMvc.perform(
-            get("${AccountController.URL}/$TEST_ACCOUNT_ID")
-        )
-            .andExpect(
-                status().isOk
-            )
+        val response = mockMvc.perform(get("${AccountController.URL}/$TEST_ACCOUNT_ID"))
+            .andExpect(status().isOk)
             .andReturn().response.getContentAsString()
 
         assertEquals(TEST_ACCOUNT, objectMapper.readValue(response, Account::class.java))
@@ -111,29 +103,21 @@ class AccountControllerTest(
 
 
     @Test
-    fun `Given get account request with wrong account id when receive it then return 404`() {
+    fun `Given get account request with wrong account id when receive it then return not found`() {
         coEvery { accountRepository.findById(any()) } returns Optional.empty()
 
-        mockMvc.perform(
-            get("${AccountController.URL}/$TEST_WRONG_ACCOUNT_ID")
-        )
-            .andExpect(
-                status().isNotFound
-            )
+        mockMvc.perform(get("${AccountController.URL}/$TEST_WRONG_ACCOUNT_ID"))
+            .andExpect(status().isNotFound)
 
         coVerify(exactly = 1) { accountRepository.findById(TEST_WRONG_ACCOUNT_ID) }
     }
 
     @Test
-    fun `Given get account request when receive it and error occurred then return 500`() {
+    fun `Given get account request when receive it and error occurred then return server error`() {
         coEvery { accountRepository.findById(any()) } throws Exception()
 
-        mockMvc.perform(
-            get("${AccountController.URL}/$TEST_WRONG_ACCOUNT_ID")
-        )
-            .andExpect(
-                status().is5xxServerError
-            )
+        mockMvc.perform(get("${AccountController.URL}/$TEST_WRONG_ACCOUNT_ID"))
+            .andExpect(status().is5xxServerError)
         coVerify(exactly = 1) { accountRepository.findById(TEST_WRONG_ACCOUNT_ID) }
     }
 }

@@ -1,5 +1,7 @@
 package me.sadensmol.finmid.controller
 
+import me.sadensmol.finmid.domain.InvalidAmountValueException
+import me.sadensmol.finmid.domain.NotEnoughAmountException
 import me.sadensmol.finmid.domain.NotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -19,9 +21,15 @@ class ErrorHandler{
     }
 
     @ExceptionHandler(NotFoundException::class)
-    fun handleNotFound(): ResponseEntity<Any> {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build()
+    fun handleNotFound(e:NotFoundException): ResponseEntity<Any> {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.message)
     }
+
+    @ExceptionHandler(InvalidAmountValueException::class,NotEnoughAmountException::class)
+    fun handleWrongAmount(e:Exception): ResponseEntity<Any> {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.message)
+    }
+
     @ExceptionHandler(Exception::class)
     fun handleException(): ResponseEntity<Any> {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()

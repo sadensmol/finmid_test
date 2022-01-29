@@ -1,3 +1,3 @@
 package me.sadensmol.finmid.domain
 
-class NotFoundException : Exception()
+class NotFoundException(message:String?=null) : Exception(message)

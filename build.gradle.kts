@@ -35,7 +35,6 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
 
-
     implementation( "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}")
     implementation( "com.fasterxml.jackson.module:jackson-module-kotlin:${jacksonVersion}")
 
@@ -45,14 +44,18 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-cache")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 
-    implementation("com.github.ben-manes.caffeine:caffeine:3.0.5")
+
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation("org.springframework.boot:spring-boot-starter-integration")
+    implementation("org.springframework.integration:spring-integration-redis")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     compileOnly("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-    implementation(platform("com.google.cloud:libraries-bom:24.2.0"))
+
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
     testImplementation("io.mockk:mockk:1.11.0")
 }
 

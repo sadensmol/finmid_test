@@ -7,6 +7,8 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.data.redis.connection.RedisConnectionFactory
+import org.springframework.integration.redis.util.RedisLockRegistry
 
 
 @Configuration
@@ -25,4 +27,9 @@ class ApplicationConfig {
     @Bean
     fun kotlinModule() = KotlinModule.Builder()
         .build()
+
+    @Bean
+    fun redisLockRegistry(redisConnectionFactory: RedisConnectionFactory?): RedisLockRegistry? {
+        return RedisLockRegistry(redisConnectionFactory, "finmid_test")
+    }
 }
