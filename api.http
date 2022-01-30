@@ -1,0 +1,23 @@
+### create account  with predefined balance
+POST http://localhost:8080/account
+Content-Type: application/json
+
+{
+"balance": 1000
+}
+
+### get account by id
+GET http://localhost:8080/account/61f639d6a471ea545a4a825d
+
+### get account by id
+GET http://localhost:8080/account/61f63aeda471ea545a4a825e
+
+### make transaction beteween 2 accounts
+POST http://localhost:8080/transaction
+Content-Type: application/json
+
+{
+  "from": "61f639d6a471ea545a4a825d",
+  "to": "61f63aeda471ea545a4a825e",
+  "amount": 500
+}

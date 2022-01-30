@@ -51,8 +51,89 @@ The best approach here is ES and CQRS.
 
 #### Account API
 
+##### Create new account with predefined balance
+
+`POST http://localhost:8080/account`  
+where body: `{balance:<balance_value>}`
+
+example request:
+```http request
+POST http://localhost:8080/account
+Content-Type: application/json
+
+{
+"balance": 1000
+}
+
+```
+
+##### Request account info
+Instead of providing account balance we provide the whole account model
+
+`GET http://localhost:8080/account/<accountId>`
+
+example request:
+```http request
+GET http://localhost:8080/account/61f639d6a471ea545a4a825d
+```
+
+example response:
+```http request
+HTTP/1.1 200 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Sun, 30 Jan 2022 07:11:53 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+
+{
+  "accountId": "61f639d6a471ea545a4a825d",
+  "balance": 1000
+}
+
+Response code: 200; Time: 51ms; Content length: 55 bytes
+
+```
 
 #### Transaction API
+
+##### Create transaction between 2 accounts
+
+`POST http://localhost:8080/transaction`  
+where body: `{from:<accountId>, to:<accountId>, amount:<amount>}`
+
+request example:
+```http request
+POST http://localhost:8080/transaction
+Content-Type: application/json
+
+{
+  "from": "61f639d6a471ea545a4a825d",
+  "to": "61f63aeda471ea545a4a825e",
+  "amount": 500
+}
+```
+
+response example:
+```http request
+POST http://localhost:8080/transaction
+
+HTTP/1.1 200 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Sun, 30 Jan 2022 07:17:12 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+
+{
+  "ixId": "61f63b78a471ea545a4a825f",
+  "amount": 500,
+  "from": "61f639d6a471ea545a4a825d",
+  "to": "61f63aeda471ea545a4a825e"
+}
+
+Response code: 200; Time: 301ms; Content length: 114 bytes
+```
 
 ### How to start
 *make start*
